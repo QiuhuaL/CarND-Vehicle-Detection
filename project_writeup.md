@@ -48,16 +48,11 @@ You're reading it!
 The code of HOG features extraction is contained in the first two cells of the IPython notebook `VehicleDetection.ipynb`.  
 
 I started by reading in all the `vehicle` and `non-vehicle` images.  Here are eight examples from each of the `vehicle` and `non-vehicle` classes:
-
 ![alt text][image_example]
-
-
 I then explored different color spaces and different `skimage.hog()` parameters (`orientations`, `pixels_per_cell`, and `cells_per_block`).  I downloaded the three vehicle images and three non-vehicle images from lesson website and saved them in the folder `./test_images_carNoncar` and displayed them to get a feel for what the `skimage.hog()` output looks like.
 
 Here is an example using the `YCrCb` color space and gray scale, with HOG parameters of `orientations=8`, `pixels_per_cell=(8, 8)` and `cells_per_block=(2, 2)`:
-
 ![alt text][image_hog]
-
 #### 2. Explain how you settled on your final choice of HOG parameters.
 
 I tried various combinations of parameters and plot the HOG features on the example vehicle images and non-vehicle images. First, I made the color conversion to different color space and found that that the `YCrCb` color space is very helpful to distinguish the car and non-car images. I decided to use all three channels to retain all helpful information. I tried different combinations on the parameters and compared the feature images and decided to use the following for the classifier in the next steps.
@@ -94,22 +89,18 @@ The code is in the cell `Slide Window Search` in the python notebook and the tes
 # Slide Window Detection Example 1:
 ```
 ![alt text][image_window1]
-
 ```python
 # Slide Window Detection Example 2:
 ```
 ![alt text][image_window2]
-
 ```python
 # Slide Window Detection Example 3:
 ```
 ![alt text][image_window3]
-
 ```python
 # Slide Window Detection Example 4:
 ```
 ![alt text][image_window6]
-
 
 From the testing results, it can be seen that the slide windows and the SVC linear classifier work very well on the testing images. The vehicles are detected and there are very fewer (1 in 6 testing images) false alarms. The number of false alarms would be further reduced in the video pipeline which will be described in the following sections. 
 
@@ -126,27 +117,19 @@ The pipeline provided a nice result.  Here are several examples on the testing i
 ```python
 # Detection with Heatmap Example 1 
 ```
-
 ![alt text][image_heat1]
-
 ```python
 # Detection with Heatmap Example 2 
 ```
-
 ![alt text][image_heat3]
-
 ```python
 # Detection with Heatmap Example 3 
 ```
-
 ![alt text][image_heat5]
-
 ```python
 # Detection with Heatmap Example 4 
 ```
-
 ![alt text][image_heat6]
-
 
 ---
 
@@ -167,21 +150,14 @@ To further reduce the false positives, I use the `collections.deque' to keep tra
 ##### Here's an example result showing the heatmaps from a series of frames from `test_video.mp4`, the result of `scipy.ndimage.measurements.label()` and the bounding boxes then overlaid on the last frame of video:
 
 ###### Here are the 10 frames and their corresponding heatmaps:
-
 ![alt text][image_deque1]
-
 ###### Here is the integrated heatmap from all 10 frames, and the resulting bounding boxes drawn onto the last frame in the series:
-
 ![alt text][image_deque1_result]
-
 ##### Here's another example result showing the heatmaps from a series of frames from `project_video.mp4`, the result of `scipy.ndimage.measurements.label()` and the bounding boxes then overlaid on the last frame of video:
 
 ###### Here are the 10 frames and their corresponding heatmaps:
-
 ![alt text][image_deque2]
-
 ###### Here is the integrated heatmap from all 10 frames, and the resulting bounding boxes drawn onto the last frame in the series:
-
 ![alt text][image_deque2_result]
 
 ---
@@ -196,7 +172,4 @@ Here I'll talk about the approach I took, what techniques I used, what worked an
 * Both HOG and color features were applied to get the results `./project_video_output.mp4`, while the final results are quite good, the length of the feature vectors are more than 6000 and it is subject to over fitting when training the SVMs with the high dimension features. There are a lof of redundancies in the features and feature reduction methods such as Principle component analysis or search tree method could be used to reduce the dimension of the features.  
 * To track of the history of heat maps from 10 continuous frames, the `collections.deque' method was used.  The integration heatmaps from the 10 images was obtained by summation of the 10 individual heatmaps. The integration map could be improved, for example, weighted average of different frames could be used and based on whether the identified windows from the frame sequence are closed to each other or not, an adaptive threshold could be applied to further improve the accuracy. This is especially important when new vehicles appear in the middle of the video.
 * The number 10 was chosen as the number of frames to track in a video. The final results showed very smooth detection on the vehicles from the right lanes. However, it smoothed out of the vechiles on the opposite direction traffic that could be potentially detected from individual frames because of the much higher relative speed.  For example, the car in the opposite traffic was detected in the example result  './output_images/test_heat_map_test5.jpg' with this frame image only. One immediate next step would be to reduce the number of frames in the tracking for video implementation and run the pipeline again.     
-   
-
-      
-
+ 
